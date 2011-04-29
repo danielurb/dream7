@@ -59,9 +59,9 @@ int main(void)
 	char k1[3];
 	fread(k1, 1, 3, plikwe);
 	char k2[3];
-	strncpy(k2, k1, 3);     
+	memcpy(k2, k1, 3);     
 	fseek(plikwe, licznik1 , SEEK_SET);  
-	int j = strncmp(k1, k2, 3);
+	int j = 0;
 	int licznik2 = 0;
 	int i = 0;
 	unsigned long	ilosc = (long)xres * (long)yres;
@@ -71,16 +71,16 @@ int main(void)
 		if(i!=ilosc)
 		{
 			fread(k1, 1, 3, plikwe);
-			j = strncmp(k1, k2, 3);
+			j = memcmp(k1, k2, 3);
 		}
-		if(j != 0 || i == (ilosc))
+		if(j != 0 || i == ilosc)
 		{
 			fwrite(k2, 1, 3, plikwy);
 			if(licznik2 == 0)
 			licznik2++;
 			fwrite(&licznik2, sizeof(licznik2), 1, plikwy);
 			licznik2 = 0;
-			strncpy(k2, k1, 3);
+			memcpy(k2, k1, 3);
 			licznik_konw++;     
 		}
 		licznik2++;
