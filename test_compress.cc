@@ -4,33 +4,24 @@
 #include<string.h>
 
 int main(void)
-{
-	FILE *plikwe, *plikwy;		
-	char tab[9], k1[3], k2[3];
-	char znak, koniec;
-	char *t1, *t2;           	
-	int j, xres, yres, h;
-	int licznik1, ikonwersji;  
-	unsigned long i, ilosc, licznik_konw;	
-
-  int licznik2;
-
-	ikonwersji = 8;
-	licznik_konw = 0;
-
-	if((plikwe = fopen("images/fisheye.mtv","r+b"))==NULL)  
+{		
+  FILE *plikwe = fopen("images/fisheye.mtv","r+b");
+  if(!plikwe)  
 	{
 		printf("Blad otwarcia pliku wejsciowego !\n");
 		return 1;
 	}
 
-	if((plikwy = fopen("fisheye.k","w+b"))==NULL) 
+  FILE *plikwy = fopen("fisheye.k","w+b");
+	if(!plikwy) 
 	{
 		printf("Blad otwarcia pliku wyjsciowego !\n");
+		fclose(plikwe);
 		return 1;
 	}
 
-	for(i=0; i<5; i++)
+	char tab[9];
+	for(int i=0; i<5; i++)
 	{
 		tab[i] = getc(plikwe);
 		if((isdigit(tab[i]))==0) 
@@ -39,9 +30,9 @@ int main(void)
 			break;
 		}
 	}
-	xres = atoi(tab);
+	int xres = atoi(tab);
 
-	for( i=0; i<5; i++)
+	for( int i=0; i<5; i++)
 	{
 		tab[i] = getc(plikwe);
 		if((isdigit(tab[i]))==0) 
@@ -50,26 +41,32 @@ int main(void)
 			break;
 		}
 	}
-	yres = atoi(tab); 
+	
+	int yres = atoi(tab); 
 
 	fseek(plikwe, 0, SEEK_SET);
-	licznik1 = 0;
+	int licznik1 = 0;
+	char znak;
 	while(znak != 10)
 	{
 		fread(&znak, 1, 1, plikwe);
 		fwrite(&znak, 1, 1, plikwy);
-		licznik1 = licznik1 + 1;	
+		licznik1++;	
 	}
 
-	fseek(plikwy, licznik1+ikonwersji, SEEK_SET);
+	int ikonwersji = 8;
+	fseek(plikwy, licznik1 + ikonwersji, SEEK_SET);
+	char k1[3];
 	fread(k1, 1, 3, plikwe);
+	char k2[3];
 	strncpy(k2, k1, 3);     
 	fseek(plikwe, licznik1 , SEEK_SET);  
-	j = strncmp(k1, k2, 3);
-	licznik2 = 0;
-	i = 0;
-	ilosc = (long)xres * (long)yres;
-	while(i <= ilosc)
+	int j = strncmp(k1, k2, 3);
+	int licznik2 = 0;
+	int i = 0;
+	unsigned long	ilosc = (long)xres * (long)yres;
+	unsigned long licznik_konw = 0;
+		while(i <= ilosc)
 	{
 		if(i!=ilosc)
 		{
@@ -86,8 +83,8 @@ int main(void)
 			strncpy(k2, k1, 3);
 			licznik_konw++;     
 		}
-		licznik2 = licznik2 + 1;	
-		i = i + 1;
+		licznik2++;
+		i++;
 	}
 
 snprintf(tab, 10, "%ld", licznik_konw);
