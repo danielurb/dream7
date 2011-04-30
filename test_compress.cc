@@ -22,48 +22,24 @@ int main(void)
     return 1;
   }
 
-  char tab[9];
+  long xres = 0;
+  long yres = 0;
 
-  for (int i = 0; i < 5; i++)
-  {
-    tab[i] = getc(plikwe);
+  fscanf(plikwe, "%ld %ld\n", &xres, &yres);
+  fprintf(plikwy, "%ld %ld\n", xres, yres);
 
-    if ((isdigit(tab[i])) == 0)
-    {
-      tab[i] = 0;
-      break;
-    }
-  }
-
-  int xres = atoi(tab);
-
-  for (int i = 0; i < 5; i++)
-  {
-    tab[i] = getc(plikwe);
-
-    if ((isdigit(tab[i])) == 0)
-    {
-      tab[i] = 0;
-      break;
-    }
-  }
-
-  int yres = atoi(tab);
-  
-  fprintf(plikwy,"%d %d\n", xres, yres);
-
-  int licznik1 = ftell(plikwy);
-  int ikonwersji = 8;
+  long licznik1   = ftell(plikwy);
+  int  ikonwersji = 8;
   fseek(plikwy, licznik1 + ikonwersji, SEEK_SET);
   char k1[3];
   fread(k1, 1, 3, plikwe);
   char prev_pixel[3];
   memcpy(prev_pixel, k1, 3);
   fseek(plikwe, licznik1, SEEK_SET);
-  int j = 0;
-  int licznik2 = 0;
-  unsigned long i = 0;
-  unsigned long ilosc = (long)xres * (long)yres;
+  int  j = 0;
+  int  licznik2 = 0;
+  long i     = 0;
+  long ilosc = xres * yres;
   unsigned long licznik_konw = 0;
 
   while (i <= ilosc)
@@ -95,6 +71,7 @@ int main(void)
     i++;
   }
 
+  char tab[10];
   snprintf(tab, 10, "%ld", licznik_konw);
 
   fseek(plikwy, licznik1, SEEK_SET);
