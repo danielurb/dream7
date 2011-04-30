@@ -49,18 +49,10 @@ int main(void)
   }
 
   int yres = atoi(tab);
+  
+  fprintf(plikwy,"%d %d\n", xres, yres);
 
-  fseek(plikwe, 0, SEEK_SET);
-  int  licznik1 = 0;
-  char znak;
-
-  while (znak != 10)
-  {
-    fread(&znak, 1, 1, plikwe);
-    fwrite(&znak, 1, 1, plikwy);
-    licznik1++;
-  }
-
+  int licznik1 = ftell(plikwy);
   int ikonwersji = 8;
   fseek(plikwy, licznik1 + ikonwersji, SEEK_SET);
   char k1[3];
