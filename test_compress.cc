@@ -62,7 +62,7 @@ int main(void)
   fseek(plikwe, licznik1, SEEK_SET);
   int j = 0;
   int licznik2 = 0;
-  int i = 0;
+  unsigned long i = 0;
   unsigned long ilosc = (long)xres * (long)yres;
   unsigned long licznik_konw = 0;
 
