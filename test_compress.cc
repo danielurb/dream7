@@ -16,11 +16,9 @@ int main(void)
   char prev_pixel[3];
   fread(prev_pixel, 1, sizeof(prev_pixel), stdin);
   int repetitions = 1;
-  long i     = 1;
-  
+   
   long ilosc = xres * yres;
-  
-  while (i <= ilosc)
+  for(long i = 1; i <= ilosc; i++)
   {
     char pixel[3];
     bool last_loop = (i == ilosc);
@@ -40,7 +38,6 @@ int main(void)
     }
 
     repetitions++;
-    i++;
   }
   return 0;
 }
