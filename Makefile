@@ -4,8 +4,8 @@ CXXFLAGS+=-Weffc++ -Wabi -Wctor-dtor-privacy -Wstrict-null-sentinel -Wold-style-
 
 CXXFLAGS+=-g
 
-check : test_compress 
-	valgrind --leak-check=full ./test_compress
+check : test_compress
+	valgrind --leak-check=full --error-exitcode=1 ./test_compress
 	cmp fisheye.k fixtures/fisheye.dr7
-  
+
 all : test_compress
