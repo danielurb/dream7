@@ -71,22 +71,8 @@ int main(void)
     i++;
   }
 
-  char tab[10];
-  snprintf(tab, 10, "%ld", licznik_konw);
-
-  fseek(plikwy, conversion_pos, SEEK_SET);
-
-  for (i = 0; i < 9; i++)
-  {
-    if (tab[i] != 0)
-    {
-      fwrite(&tab[i], 1, 1, plikwy);
-    }
-    else
-    {
-      break;
-    }
-  }
+  fseek(plikwy, conversion_pos, SEEK_SET);  
+  fprintf(plikwy, "%ld", licznik_konw);
 
   fclose(plikwe);
   fclose(plikwy);
