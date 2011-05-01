@@ -28,14 +28,14 @@ int main(void)
   fscanf(plikwe, "%ld %ld\n", &xres, &yres);
   fprintf(plikwy, "%ld %ld\n", xres, yres);
 
-  long licznik1   = ftell(plikwy);
+  long conversion_pos = ftell(plikwy);
   int  ikonwersji = 8;
-  fseek(plikwy, licznik1 + ikonwersji, SEEK_SET);
+  fseek(plikwy, conversion_pos + ikonwersji, SEEK_SET);
   char k1[3];
   fread(k1, 1, 3, plikwe);
   char prev_pixel[3];
   memcpy(prev_pixel, k1, 3);
-  fseek(plikwe, licznik1, SEEK_SET);
+  fseek(plikwe, conversion_pos, SEEK_SET);
   int  j = 0;
   int  licznik2 = 0;
   long i     = 0;
@@ -74,7 +74,7 @@ int main(void)
   char tab[10];
   snprintf(tab, 10, "%ld", licznik_konw);
 
-  fseek(plikwy, licznik1, SEEK_SET);
+  fseek(plikwy, conversion_pos, SEEK_SET);
 
   for (i = 0; i < 9; i++)
   {
