@@ -5,7 +5,7 @@ CXXFLAGS+=-Weffc++ -Wabi -Wctor-dtor-privacy -Wstrict-null-sentinel -Wold-style-
 CXXFLAGS+=-g
 
 check : clean test_compress
-	valgrind --leak-check=full --error-exitcode=1 ./test_compress < images/fisheye.mtv > fisheye.k
+	valgrind --quiet --leak-check=full --error-exitcode=1 ./test_compress < images/fisheye.mtv > fisheye.k
 	cmp fisheye.k fixtures/fisheye.dr7
 	
 clean:
