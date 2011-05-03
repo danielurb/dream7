@@ -6,16 +6,17 @@ CXXFLAGS+=-g
 
 TARGET = test_compress
 
+OBJS = test_compress.o dream7.o
 
 check : clean $(TARGET)
 	valgrind --quiet --leak-check=full --error-exitcode=1 ./$(TARGET) < images/fisheye.mtv > fisheye.k
 	cmp fisheye.k fixtures/fisheye.dr7
 
-$(TARGET) : test_compress.o dream7.o
+$(TARGET) : $(OBJS)
 	g++ -o $@ $^
 
 	
 clean:
-	rm -f fisheye.k $(TARGET)
+	rm -f fisheye.k $(TARGET) $(OBJS)
 
 all : $(TARGET)
