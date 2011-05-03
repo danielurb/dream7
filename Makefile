@@ -4,12 +4,16 @@ CXXFLAGS+=-Weffc++ -Wabi -Wctor-dtor-privacy -Wstrict-null-sentinel -Wold-style-
 
 CXXFLAGS+=-g
 
-TARGET = dream7
+TARGET = test_compress
 
 
 check : clean $(TARGET)
 	valgrind --quiet --leak-check=full --error-exitcode=1 ./$(TARGET) < images/fisheye.mtv > fisheye.k
 	cmp fisheye.k fixtures/fisheye.dr7
+
+$(TARGET) : test_compress.o dream7.o
+	g++ -o $@ $^
+
 	
 clean:
 	rm -f fisheye.k $(TARGET)
