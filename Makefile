@@ -4,6 +4,8 @@ CXXFLAGS+=-Weffc++ -Wabi -Wctor-dtor-privacy -Wstrict-null-sentinel -Wold-style-
 
 CXXFLAGS+=-g
 
+VALGRIND_OPTIONS = --quiet --leak-check=full --error-exitcode=1
+
 TARGET = test_compress
 
 OBJS = test_compress.o dream7.o
@@ -13,7 +15,7 @@ output = fisheye.k
 fixture = fixtures/fisheye.dr7
 
 check : clean $(TARGET)
-	valgrind --quiet --leak-check=full --error-exitcode=1 ./$(TARGET) < $(input) > $(output)
+	valgrind $(VALGRIND_OPTIONS) ./$(TARGET) < $(input) > $(output)
 	cmp $(output) $(fixture)
 
 $(TARGET) : $(OBJS)
