@@ -8,15 +8,19 @@ TARGET = test_compress
 
 OBJS = test_compress.o dream7.o
 
+input = images/fisheye.mtv
+output = fisheye.k
+fixture = fixtures/fisheye.dr7
+
 check : clean $(TARGET)
-	valgrind --quiet --leak-check=full --error-exitcode=1 ./$(TARGET) < images/fisheye.mtv > fisheye.k
-	cmp fisheye.k fixtures/fisheye.dr7
+	valgrind --quiet --leak-check=full --error-exitcode=1 ./$(TARGET) < $(input) > $(output)
+	cmp $(output) $(fixture)
 
 $(TARGET) : $(OBJS)
 	g++ -o $@ $^
 
-	
+
 clean:
-	rm -f fisheye.k $(TARGET) $(OBJS)
+	rm -f $(output) $(TARGET) $(OBJS)
 
 all : $(TARGET)
