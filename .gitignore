@@ -1,5 +1,7 @@
 fisheye.k
 test_compress
+test_decompress
+*.mtv
 *~
 *.o
 dream7
