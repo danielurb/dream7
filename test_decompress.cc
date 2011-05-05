@@ -11,23 +11,22 @@ int main(void)
   char tab[10];
   fread(tab, 1, 8, stdin);
 
-  long ikonw = atol(tab);
-  int  i     = 0;
-
-  while (i != ikonw)
+  while (true)
   {
-    char k1[3];
-    fread(k1, 1, 3, stdin);
+    char pixel[3];
+
+    if (!fread(pixel, 1, 3, stdin))
+    {
+      break;
+    }
 
     int ilosc;
     fread(&ilosc, sizeof(ilosc), 1, stdin);
 
     for (int j = 0; j < ilosc; j++)
     {
-      fwrite(k1, 1, 3, stdout);
+      fwrite(pixel, 1, 3, stdout);
     }
-
-    i++;
   }
 
   return 0;
