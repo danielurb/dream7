@@ -20,10 +20,10 @@ int main(void)
       break;
     }
 
-    int ilosc;
-    fread(&ilosc, sizeof(ilosc), 1, stdin);
+    int pixel_count;
+    fread(&pixel_count, sizeof(pixel_count), 1, stdin);
 
-    for (int j = 0; j < ilosc; j++)
+    for (int j = 0; j < pixel_count; j++)
     {
       fwrite(pixel, 1, 3, stdout);
     }
