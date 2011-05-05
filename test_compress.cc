@@ -1,6 +1,6 @@
 #include <stdio.h>
+#include"dream7.h"
 
-void compress(FILE *input, FILE *output);
 
 int main(void)
 {

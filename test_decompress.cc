@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include"dream7.h"
 
-void decompress(FILE *input, FILE *output);
 
 int main(void)
 {
