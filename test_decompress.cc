@@ -1,17 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct Pixel
+{
+  char r;
+  char g;
+  char b;
+};
+
 void decompress(FILE *input, FILE *output)
 {
- char resolution_string[9];
+  char resolution_string[9];
   fgets(resolution_string, 9, input);
   fputs(resolution_string, output);
 
   while (true)
   {
-    char pixel[3];
+    Pixel pixel;
 
-    if (!fread(pixel, 1, 3, stdin))
+    if (!fread(&pixel, 1, sizeof(pixel), stdin))
     {
       break;
     }
@@ -21,15 +28,13 @@ void decompress(FILE *input, FILE *output)
 
     for (int j = 0; j < pixel_count; j++)
     {
-      fwrite(pixel, 1, 3, stdout);
+      fwrite(&pixel, 1, sizeof(pixel), stdout);
     }
   }
-
 }
-
 
 int main(void)
 {
-	decompress(stdin, stdout); 
+  decompress(stdin, stdout);
   return 0;
 }
