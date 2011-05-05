@@ -1,24 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
+
 
 int main(void)
 {
-  char znak = 0;
-
-  while (znak != 10)
-  {
-    fread(&znak, 1, 1, stdin);
-    fwrite(&znak, 1, 1, stdout);
-  }
+  char resolution_string[9];
+  fgets(resolution_string, 9, stdin);
+  fputs(resolution_string, stdout);
 
   char tab[10];
-
-  for (int i = 0; i < 8; i++)
-  {
-    tab[i] = static_cast<char>(fgetc(stdin));
-  }
+  fread(tab, 1, 8, stdin);
 
   long ikonw = atol(tab);
   int  i     = 0;
