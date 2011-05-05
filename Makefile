@@ -21,7 +21,6 @@ output2 = output.mtv
 
 check : clean $(TARGET) $(TARGET2) 
 	valgrind $(VALGRIND_OPTIONS) ./$(TARGET) < $(input) > $(output)
-	cmp $(output) $(fixture)
 	valgrind $(VALGRIND_OPTIONS) ./$(TARGET2) < $(output) > $(output2)
 	cmp $(output2) $(input)
 

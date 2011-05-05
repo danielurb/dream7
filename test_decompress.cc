@@ -8,9 +8,6 @@ int main(void)
   fgets(resolution_string, 9, stdin);
   fputs(resolution_string, stdout);
 
-  char tab[10];
-  fread(tab, 1, 8, stdin);
-
   while (true)
   {
     char pixel[3];

@@ -43,8 +43,6 @@ void compress(FILE *input, FILE *output)
   fscanf(input, "%ld %ld\n", &xres, &yres);
   fprintf(output, "%ld %ld\n", xres, yres);
 
-  fwrite("7840\x0\x0\x0\x0", 8, 1, output);
-
   Pixel prev_pixel;
   read_pixel(input, prev_pixel);
   int repetitions = 1;
