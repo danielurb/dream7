@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-int main(void)
+void decompress(FILE *input, FILE *output)
 {
-  char resolution_string[9];
-  fgets(resolution_string, 9, stdin);
-  fputs(resolution_string, stdout);
+ char resolution_string[9];
+  fgets(resolution_string, 9, input);
+  fputs(resolution_string, output);
 
   while (true)
   {
@@ -26,5 +25,11 @@ int main(void)
     }
   }
 
+}
+
+
+int main(void)
+{
+	decompress(stdin, stdout); 
   return 0;
 }
