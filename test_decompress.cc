@@ -5,57 +5,39 @@
 
 int main(void)
 {
-  FILE *plikwe, *plikwy;
-
-  long ikonw;
-
-  if ((plikwe = fopen("fisheye.k", "r+b")) == NULL)
-  {
-    printf("Blad otwarcia pliku wejsciowego !");
-    return 1;
-  }
-
-  if ((plikwy = fopen("output.mtv", "w+b")) == NULL)
-  {
-    printf("Blad otwarcia pliku wysciowego !");
-    return 1;
-  }
-
   char znak = 0;
 
   while (znak != 10)
   {
-    fread(&znak, 1, 1, plikwe);
-    fwrite(&znak, 1, 1, plikwy);
+    fread(&znak, 1, 1, stdin);
+    fwrite(&znak, 1, 1, stdout);
   }
 
   char tab[10];
 
   for (int i = 0; i < 8; i++)
   {
-    tab[i] = static_cast<char>(fgetc(plikwe));
+    tab[i] = static_cast<char>(fgetc(stdin));
   }
 
-  ikonw = atol(tab);
-  int i = 0;
+  long ikonw = atol(tab);
+  int  i     = 0;
 
   while (i != ikonw)
   {
     char k1[3];
-    fread(k1, 1, 3, plikwe);
+    fread(k1, 1, 3, stdin);
 
     int ilosc;
-    fread(&ilosc, sizeof(ilosc), 1, plikwe);
+    fread(&ilosc, sizeof(ilosc), 1, stdin);
 
     for (int j = 0; j < ilosc; j++)
     {
-      fwrite(k1, 1, 3, plikwy);
+      fwrite(k1, 1, 3, stdout);
     }
 
     i++;
   }
 
-  fclose(plikwe);
-  fclose(plikwy);
   return 0;
 }
