@@ -30,8 +30,13 @@ void copy_pixel(Pixel &dst_pixel, const Pixel &src_pixel)
 
 void write_conversion(FILE *output, const Pixel &pixel, int repetition)
 {
-  fwrite(&pixel, 1, sizeof(Pixel), output);
+  fwrite(&pixel, sizeof(Pixel), 1, output);
   fwrite(&repetition, sizeof(repetition), 1, output);
+}
+
+void write_int(FILE *output, int res)
+{
+	fwrite(&res, sizeof(res), 1, output);
 }
 
 void compress(FILE *input, FILE *output)
@@ -40,7 +45,8 @@ void compress(FILE *input, FILE *output)
   int yres = 0;
 
   fscanf(input, "%d %d\n", &xres, &yres);
-  fprintf(output, "%d %d\n", xres, yres);
+  write_int(output, xres);
+  write_int(output, yres);
 
   Pixel prev_pixel;
   read_pixel(input, prev_pixel);
@@ -78,9 +84,9 @@ int read_int(FILE *input)
 
 void decompress(FILE *input, FILE *output)
 {
-  char resolution_string[9];
-  fgets(resolution_string, 9, input);
-  fputs(resolution_string, output);
+  int xres = read_int(input);
+  int yres = read_int(input);
+  fprintf(output, "%d %d\n", xres, yres);
 
   while (true)
   {
