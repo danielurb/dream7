@@ -1,6 +1,7 @@
-fisheye.k
+*.k
 test_compress
 test_decompress
+test_compress_decompress
 *.mtv
 *~
 *.o
