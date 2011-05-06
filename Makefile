@@ -10,18 +10,23 @@ VALGRIND_OPTIONS = --quiet --leak-check=full --error-exitcode=1
 
 TARGET = test_compress
 TARGET2 = test_decompress
+TARGET3 = test_compress_decompress
 
 OBJS = test_compress.o dream7.o
 OBJS2 = test_decompress.o dream7.o
+OBJS3 = test_compress_decompress.o dream7.o   
 
 input = images/fisheye.mtv
 output = fisheye.k
 fixture = fixtures/fisheye.dr7
 output2 = output.mtv
 
-check : clean $(TARGET) $(TARGET2) 
+check : clean $(TARGET) $(TARGET2) $(TARGET3)
 	valgrind $(VALGRIND_OPTIONS) ./$(TARGET) < $(input) > $(output)
 	valgrind $(VALGRIND_OPTIONS) ./$(TARGET2) < $(output) > $(output2)
+	cmp $(output2) $(input)
+	rm -f $(output2)
+	valgrind $(VALGRIND_OPTIONS) ./$(TARGET3)
 	cmp $(output2) $(input)
 
 $(TARGET) : $(OBJS)
@@ -29,6 +34,9 @@ $(TARGET) : $(OBJS)
 
 $(TARGET2) : $(OBJS2)
 	g++ -o $@ $^
+	
+$(TARGET3) : $(OBJS3)
+	g++ -o 	$@ $^
 
 
 clean:

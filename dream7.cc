@@ -74,17 +74,17 @@ void decompress(FILE *input, FILE *output)
   {
     Pixel pixel;
 
-    if (!fread(&pixel, 1, sizeof(pixel), stdin))
+    if (!fread(&pixel, 1, sizeof(pixel), input))
     {
       break;
     }
 
     int pixel_count;
-    fread(&pixel_count, sizeof(pixel_count), 1, stdin);
+    fread(&pixel_count, sizeof(pixel_count), 1, input);
 
     for (int j = 0; j < pixel_count; j++)
     {
-      fwrite(&pixel, 1, sizeof(pixel), stdout);
+      fwrite(&pixel, 1, sizeof(pixel), output);
     }
   }
 }
