@@ -18,9 +18,9 @@ bool same_pixel(const Pixel &pixel, const Pixel &prev_pixel)
   return (0 == memcmp(&pixel, &prev_pixel, sizeof(Pixel)));
 }
 
-void read_pixel(FILE *input, Pixel &pixel)
+bool read_pixel(FILE *input, Pixel &pixel)
 {
-  fread(&pixel, 1, sizeof(Pixel), input);
+  return fread(&pixel, sizeof(Pixel), 1, input) > 0;
 }
 
 void copy_pixel(Pixel &dst_pixel, const Pixel &src_pixel)
@@ -64,6 +64,18 @@ void compress(FILE *input, FILE *output)
   write_conversion(output, prev_pixel, repetitions);
 }
 
+void write_pixel(FILE *output, const Pixel &pixel)
+{
+  fwrite(&pixel, sizeof(pixel), 1, output);
+}
+
+int read_int(FILE *input)
+{
+  int count;
+  fread(&count, sizeof(count), 1, input);
+  return count;
+}
+
 void decompress(FILE *input, FILE *output)
 {
   char resolution_string[9];
@@ -74,17 +86,16 @@ void decompress(FILE *input, FILE *output)
   {
     Pixel pixel;
 
-    if (!fread(&pixel, 1, sizeof(pixel), input))
+    if (!read_pixel(input, pixel))
     {
       break;
     }
 
-    int pixel_count;
-    fread(&pixel_count, sizeof(pixel_count), 1, input);
+    int pixel_count = read_int(input);
 
     for (int j = 0; j < pixel_count; j++)
     {
-      fwrite(&pixel, 1, sizeof(pixel), output);
+      write_pixel(output, pixel);
     }
   }
 }
