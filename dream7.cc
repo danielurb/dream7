@@ -36,11 +36,11 @@ void write_conversion(FILE *output, const Pixel &pixel, int repetition)
 
 void compress(FILE *input, FILE *output)
 {
-  long xres = 0;
-  long yres = 0;
+  int xres = 0;
+  int yres = 0;
 
-  fscanf(input, "%ld %ld\n", &xres, &yres);
-  fprintf(output, "%ld %ld\n", xres, yres);
+  fscanf(input, "%d %d\n", &xres, &yres);
+  fprintf(output, "%d %d\n", xres, yres);
 
   Pixel prev_pixel;
   read_pixel(input, prev_pixel);
