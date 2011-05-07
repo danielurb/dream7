@@ -44,7 +44,7 @@ void compress(FILE *input, FILE *output)
   int xres = 0;
   int yres = 0;
 
-  fscanf(input, "%d %d\n", &xres, &yres);
+  fscanf(input, "P6\n%d %d\n255\n", &xres, &yres);
   write_int(output, xres);
   write_int(output, yres);
 
@@ -86,7 +86,7 @@ void decompress(FILE *input, FILE *output)
 {
   int xres = read_int(input);
   int yres = read_int(input);
-  fprintf(output, "%d %d\n", xres, yres);
+  fprintf(output, "P6\n%d %d\n255\n", xres, yres);
 
   while (true)
   {

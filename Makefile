@@ -16,17 +16,17 @@ OBJS = test_compress.o dream7.o
 OBJS2 = test_decompress.o dream7.o
 OBJS3 = test_compress_decompress.o dream7.o   
 
-input = images/fisheye.mtv
+input = images/fisheye.ppm
 output = fisheye.k
 fixture = fixtures/fisheye.dr7
-output2 = output.mtv
-
+output2 = output.ppm
+ 
 check : clean $(TARGET) $(TARGET2) $(TARGET3)
 	valgrind $(VALGRIND_OPTIONS) ./$(TARGET) < $(input) > $(output)
 	valgrind $(VALGRIND_OPTIONS) ./$(TARGET2) < $(output) > $(output2)
 	cmp $(output2) $(input)
 	rm -f $(output2)
-	valgrind $(VALGRIND_OPTIONS) ./$(TARGET3)
+	valgrind $(VALGRIND_OPTIONS) ./$(TARGET3) $(input) $(output2)
 	cmp $(output2) $(input)
 
 $(TARGET) : $(OBJS)

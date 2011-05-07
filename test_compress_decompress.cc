@@ -1,9 +1,9 @@
 #include<stdio.h>
 #include"dream7.h"
 
-int main()
+int main(int /*argc*/, char *argv[])
 {
-	FILE * input = fopen("images/fisheye.mtv", "r");
+	FILE * input = fopen(argv[1], "r");
 	FILE * output = fopen("temp.k", "w");
 	
 	compress(input, output);
@@ -12,7 +12,7 @@ int main()
 	fclose(output);
 	
 	input = fopen("temp.k", "r");
-	output = fopen("output.mtv", "w");
+	output = fopen(argv[2], "w");
 	
 	decompress(input, output);
 	
