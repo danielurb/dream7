@@ -6,3 +6,4 @@ test_compress_decompress
 *~
 *.o
 dream7
+output.ppm
